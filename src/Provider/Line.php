@@ -75,6 +75,8 @@ class Line extends OAuth2
         $userProfile->displayName = $data->get('name');
         $userProfile->photoURL = $data->get('picture');
         $userProfile->email = $data->get('email');
+        $userProfile->firstName = $data->get('name');
+        $userProfile->lastName = $data->get('name');
 
         return $userProfile;
     }
