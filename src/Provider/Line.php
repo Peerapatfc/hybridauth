@@ -71,13 +71,21 @@ class Line extends OAuth2
 
         $userProfile = new User\Profile();
 
+        $name = $this->get_thai_eng_num($data->get('name'));
         $userProfile->identifier = $data->get('sub');
-        $userProfile->displayName = $data->get('name');
+        $userProfile->displayName = $name;
         $userProfile->photoURL = $data->get('picture');
         $userProfile->email = $data->get('email');
-        $userProfile->firstName = $data->get('name');
-        $userProfile->lastName = $data->get('name');
+        $userProfile->firstName = $name;
+        $userProfile->lastName = $name;
 
         return $userProfile;
     }
+
+    public function get_thai_eng_num($text) {
+        // Match Thai characters, English characters, and numbers
+        $regex = '/[^\x{0E00}-\x{0E7F}A-Za-z0-9]/u';
+        $clean_text = preg_replace($regex, '', $text);
+        return $clean_text;
+      }
 }
